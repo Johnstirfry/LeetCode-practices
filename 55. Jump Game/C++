@@ -1,5 +1,6 @@
 class Solution {
 public:
+    // brute force dp
     bool canJump(vector<int>& nums) {
         if (nums.size() <= 1) return true;
         
@@ -22,5 +23,14 @@ public:
             }
         }
         return dp[0];
+    }
+    // Linear solution
+    bool canJump(vector<int>& nums){
+        int m = 0;
+        for (int i = 0; i < nums.size(); i++){
+            if (i > m) return false;
+            m = max(m, i+nums[i]);
+        }
+        return true;
     }
 };
