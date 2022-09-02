@@ -1,0 +1,33 @@
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        if(matrix.empty()) return {};
+        
+        int m = matrix.size()-1, n = matrix[0].size(); 
+        int r = 0, c = -1, curDir = 0, step = 0;
+        vector<pair<int, int>> dir = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+        vector<int> res;
+        
+        while(1) {
+            // Decide steps
+            if(curDir % 2) {
+                step = m;
+                m--;
+            }
+            else {
+                step = n;
+                n--;
+            }
+            if(step == 0) break;
+            
+            for(; step > 0; step--){
+                r += dir[curDir % 4].first;
+                c += dir[curDir % 4].second;
+                res.push_back(matrix[r][c]);
+            }
+            curDir++;
+        }
+        
+        return res;
+    }
+};
