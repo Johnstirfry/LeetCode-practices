@@ -1,0 +1,20 @@
+class Solution(object):
+    def rotate(self, matrix):
+        """
+        :type matrix: List[List[int]]
+        :rtype: None Do not return anything, modify matrix in-place instead.
+        """
+        self.transpose(matrix)
+        self.reflect(matrix)
+        
+    def transpose(self, matrix):
+        m = len(matrix)
+        for c in range(m):
+            for r in range(c+1):
+                matrix[r][c], matrix[c][r] = matrix[c][r], matrix[r][c]
+        
+    def reflect(self, matrix):
+        m = len(matrix)
+        for r in range(m):
+            for c in range(0,m//2):
+                matrix[r][c], matrix[r][m-c-1] = matrix[r][m-c-1], matrix[r][c]
