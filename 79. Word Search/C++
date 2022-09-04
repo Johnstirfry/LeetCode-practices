@@ -1,0 +1,34 @@
+class Solution(object):
+    def exist(self, board, word):
+        """
+        :type board: List[List[str]]
+        :type word: str
+        :rtype: bool
+        """
+        if not word: return True
+        
+        for i in range(len(board)):
+            for j in range(len(board[0])):
+                if self.check(board, i, j, word):
+                    return True
+        return False
+    
+    def check(self, board, i, j, word):
+        # Finish checking
+        if not word: return True
+        # Out of bounds
+        if i < 0 or i >= len(board) or j < 0 or j >= len(board[0]): return False
+        # Check
+        if board[i][j] != word[0]: return False
+        
+        originalVal = board[i][j]
+        board[i][j] = ' '
+        if self.check(board, i-1, j, word[1:]): return True
+        if self.check(board, i+1, j, word[1:]): return True
+        if self.check(board, i, j-1, word[1:]): return True
+        if self.check(board, i, j+1, word[1:]): return True
+        
+        board[i][j] = originalVal
+        return False
+            
+            
