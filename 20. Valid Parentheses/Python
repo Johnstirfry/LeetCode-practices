@@ -1,0 +1,18 @@
+class Solution(object):
+    def isValid(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        q = collections.deque()
+        match = {")":"(", "]":"[", "}":"{"}
+        
+        for char in s:
+            if char == "(" or char == "[" or char == "{":
+                q.append(char)
+            else:
+                if not q or match[char] != q.pop():
+                    return False
+                
+        if q: return False
+        else: return True
