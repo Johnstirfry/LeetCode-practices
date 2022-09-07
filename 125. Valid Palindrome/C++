@@ -1,0 +1,42 @@
+class Solution {
+public:
+    bool isPalindrome(string s) {
+        if(s == "") return true;
+        /**
+        string s2;
+        for(char c: s){
+            if(isalpha(c) || isdigit(c)){
+                if(isupper(c))
+                    c += 32;
+                s2 += c;
+            }
+        }
+        for(int i = 0; i < s2.length()/2; i++){
+            if(s2[i] != s2[s2.length()-i-1])
+                return false;
+        }
+        return true;
+        **/
+        int left = 0, right = s.length()-1;
+        
+        while(left < right){
+            if(!isalpha(s[left]) && !isdigit(s[left])){
+                left++;
+                continue;
+            }
+            if(!isalpha(s[right]) && !isdigit(s[right])){
+                right--;
+                continue;
+            }
+            if(isupper(s[left]))
+                s[left] += 32;
+            if(isupper(s[right]))
+                s[right] += 32;
+            if(s[left] != s[right])
+                return false;
+            left++;
+            right--;
+        }
+        return true;
+    }
+};
