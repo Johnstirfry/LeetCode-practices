@@ -1,0 +1,15 @@
+class Solution(object):
+    def topKFrequent(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: List[int]
+        """
+        if len(nums) == k: return nums
+        
+        # build freq dict
+        count = collections.Counter(nums)
+        
+        # build heap
+        return heapq.nlargest(k, count.keys(), key=count.get)
+        
