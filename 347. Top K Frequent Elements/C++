@@ -1,0 +1,35 @@
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        // Step 1: edge case
+        if(k == nums.size()) return nums;
+        
+        // Step 2: build hashmap
+        map<int, int> counter;
+        for(int num: nums){
+            counter[num] += 1;
+        }
+        
+        // Step 3: build min heap
+        // heap是反向比較(!cmp在前)，若是要小到大 => 用>
+        auto compare = [&counter](int n1, int n2) { return counter[n1] > counter[n2]; };
+        priority_queue<int, vector<int>, decltype(compare)> heap(compare);
+        
+        // Push
+        for(pair<int, int> p: counter){
+            heap.push(p.first);
+            if(heap.size() > k) heap.pop(); //若超過K，拿出最小的
+        }
+        
+        // Step 4: output vector
+        vector<int> res(k);
+        for(int i = k - 1; i >= 0; i--){
+            res[i] = heap.top();
+            heap.pop();
+        }
+        return res;
+    }
+        
+};
+
+
