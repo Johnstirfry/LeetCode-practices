@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int eraseOverlapIntervals(vector<vector<int>>& intervals) {
+        if(intervals.empty()) return 0;
+        
+        // sort first
+        sort(intervals.begin(), intervals.end(), [](const vector<int>& a, const vector<int>& b){ return a[0] < b[0]; });
+
+        int eraseCount = 0;
+        int prev = intervals[0][1];
+        for(int i = 1; i < intervals.size(); i++){
+            // compare previous end w/ current start to check if overlap
+            if(intervals[i][0] < prev){
+                eraseCount++;
+                if(prev < intervals[i][1])  // Select interval that has smaller end to assure minimum removal
+                    continue;
+            }
+            prev = intervals[i][1];
+        }
+        
+        return eraseCount;
+    }
+};
