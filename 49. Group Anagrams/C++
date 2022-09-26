@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        if(strs.empty()) return {strs};
+        
+        map<vector<int>, vector<string>> wordMap;
+        for(string s: strs){
+            vector<int> counter(26, 0);
+            for(char c: s){
+                counter[c - 97]++;
+            }
+            wordMap[counter].push_back(s);
+        }
+        
+        vector<vector<string>> res;
+        for(auto group: wordMap){
+            res.push_back(group.second);
+        }
+        return res;
+    }
+};
