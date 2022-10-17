@@ -1,0 +1,22 @@
+class Solution(object):
+    def maxSubArray(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        # use sliding window
+        res = nums[0]
+        curSum = nums[0]
+        l = 0
+        
+        for r in range(1, len(nums)):
+            if curSum < 0 and nums[r] > curSum:
+                l = r
+                curSum = nums[r]
+            else:
+                curSum += nums[r]
+            res = max(res, curSum)
+
+        
+        return res
+
